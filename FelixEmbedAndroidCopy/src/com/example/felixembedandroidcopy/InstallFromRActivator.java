@@ -44,6 +44,9 @@ public class InstallFromRActivator implements BundleActivator{
         is = res.openRawResource(R.raw.textbundle);
         Bundle bundletextbundle = arg0.installBundle(fileRootPath+"felix/bundle/textbundle.jar",is);
         
+        is = res.openRawResource(R.raw.felixexample);
+        Bundle budlefelixexample = arg0.installBundle(fileRootPath+"felix/budnle/felixexample.jar",is);
+        
         
         bundleshell.start();
         bundlebundlerepository.start();
@@ -52,6 +55,7 @@ public class InstallFromRActivator implements BundleActivator{
         bundleipojoarch.start();
         bundlefileinstall130.start();
         bundletextbundle.start();
+        budlefelixexample.start();
 		
 	}
 

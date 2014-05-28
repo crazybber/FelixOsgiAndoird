@@ -16,6 +16,7 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
+import com.example.felixembedandroidcopy.view.TextService;
 import com.example.felixembedandroidcopy.view.ViewFactory;
 
 import android.support.v4.app.Fragment;
@@ -119,7 +120,7 @@ public class MainActivity extends Activity {
         testInstalledBundleState();
         
         initServiceTracker();
-
+        
     }
 	
 	
@@ -259,7 +260,7 @@ public class MainActivity extends Activity {
 			teststr = teststr+"\n "+b.getSymbolicName()+"\nSTATE: "+stateStr+" ";
 			System.out.println("TESTBUNDLE: "+b.getSymbolicName());
 			
-			Log.i(b.getSymbolicName(),Integer.toString(b.getState()));
+			
 		}
 
         TextView tv = new TextView(this);
@@ -267,6 +268,9 @@ public class MainActivity extends Activity {
         tv.setText("Hello: "+teststr);
         
         setContentView(tv);
+    	
+    }
+    private void startBundle(){
     	
     }
     
