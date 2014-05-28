@@ -260,7 +260,10 @@ public class MainActivity extends Activity {
 			teststr = teststr+"\n "+b.getSymbolicName()+"\nSTATE: "+stateStr+" ";
 			System.out.println("TESTBUNDLE: "+b.getSymbolicName());
 			
-			
+			if(b.getBundleContext() == null)
+				Log.i(b.getSymbolicName(), "null");
+			else
+				Log.i(b.getSymbolicName(),"context on");
 		}
 
         TextView tv = new TextView(this);
@@ -268,9 +271,6 @@ public class MainActivity extends Activity {
         tv.setText("Hello: "+teststr);
         
         setContentView(tv);
-    	
-    }
-    private void startBundle(){
     	
     }
     

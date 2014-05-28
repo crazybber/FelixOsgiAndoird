@@ -117,7 +117,8 @@ public class FelixConfig {
                             "org.json",
                             "org.xml.*",
                             "org.xmlpull.*",
-                            "org.w3c.*")
+                            "org.w3c.*",
+                            "textbundle.*")
                     )
         )
              
