@@ -19,6 +19,7 @@ import org.osgi.util.tracker.ServiceTrackerCustomizer;
 import com.example.felixembedandroidcopy.view.ViewFactory;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -104,6 +105,7 @@ public class MainActivity extends Activity {
             m_felix = new Felix(m_felixProperties);
             // Now start Felix instance.
             m_felix.start();
+            
         }
         catch (Exception ex)
         {
@@ -256,6 +258,8 @@ public class MainActivity extends Activity {
 			
 			teststr = teststr+"\n "+b.getSymbolicName()+"\nSTATE: "+stateStr+" ";
 			System.out.println("TESTBUNDLE: "+b.getSymbolicName());
+			
+			Log.i(b.getSymbolicName(),Integer.toString(b.getState()));
 		}
 
         TextView tv = new TextView(this);
