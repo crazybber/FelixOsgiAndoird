@@ -2,6 +2,7 @@ package com.example.felixembedandroidcopy;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -241,9 +242,11 @@ public class MainActivity extends Activity {
     private void testInstalledBundleState(){
     	
 		Bundle[] bundles = getInstalledBundles();
+		TextService ts = null;
+		ArrayList<Object> serviceList = new ArrayList<Object>();
 		String teststr = "TEST: ";
 		for (Bundle b : bundles) {
-		
+			
 			String stateStr ="";
 			int state = b.getState();
 			switch (state){
@@ -260,15 +263,30 @@ public class MainActivity extends Activity {
 			teststr = teststr+"\n "+b.getSymbolicName()+"\nSTATE: "+stateStr+" ";
 			System.out.println("TESTBUNDLE: "+b.getSymbolicName());
 			
-			if(b.getBundleContext() == null)
-				Log.i(b.getSymbolicName(), "null");
-			else
-				Log.i(b.getSymbolicName(),"context on");
+			if(b.getSymbolicName().equals("TextBundle") )
+			{
+				//serviceList.add(b.getRegisteredServices());
+				for(Object obj : b.getRegisteredServices())
+				{
+					Log.i("Service toString",obj.toString());
+					
+					//Object a = b.getBundleContext().getService(b.getBundleContext().getServiceReference(obj.toString()));
+					Object a  = b.getBundleContext();
+					if(a != null)
+					{
+						Log.i("Bundle State and Name","not null "+ a.toString());
+					}
+					else
+						Log.e("bundle State", " NULL");
+				}
+			}
+				 
+			
+				
 		}
 
         TextView tv = new TextView(this);
-		
-        tv.setText("Hello: "+teststr);
+			tv.setText("Hello: "+teststr);
         
         setContentView(tv);
     	
