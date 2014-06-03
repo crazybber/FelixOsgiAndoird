@@ -293,7 +293,7 @@ public class MainActivity extends Activity {
 		}
 
         TextView tv = new TextView(this);
-			tv.setText("Hello: "+gotText);
+			tv.setText("Hello: "+teststr+"\n"+gotText);
         
         setContentView(tv);
     	

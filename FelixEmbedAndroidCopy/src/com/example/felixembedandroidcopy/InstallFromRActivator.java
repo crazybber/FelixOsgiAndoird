@@ -44,8 +44,17 @@ public class InstallFromRActivator implements BundleActivator{
         is = res.openRawResource(R.raw.textbundle);
         Bundle bundletextbundle = arg0.installBundle(fileRootPath+"felix/bundle/textbundle.jar",is);
         
+        is = res.openRawResource(R.raw.contextmonitor);
+        Bundle bundlecontextmonitor = arg0.installBundle(fileRootPath+"felix/bundle/contextmonitor.jar",is);
         
+        is = res.openRawResource(R.raw.adaptationmanager);
+        Bundle bundleadaptationmanager =arg0.installBundle(fileRootPath+"felix/bundle/adaptationmanager",is);
         
+        is = res.openRawResource(R.raw.adaptationreasoner);
+        Bundle bundleadaptationreasoner =arg0.installBundle(fileRootPath+"felix/bundle/adaptationreasoner",is);
+        
+        is = res.openRawResource(R.raw.configcontroller);
+        Bundle bundleconfigcontroller = arg0.installBundle(fileRootPath+"felix/bundle/configcontroller",is);
         
         
         bundleshell.start();
@@ -55,7 +64,11 @@ public class InstallFromRActivator implements BundleActivator{
         bundleipojoarch.start();
         bundlefileinstall130.start();
         bundletextbundle.start();
-        
+        bundleconfigcontroller.start();
+        bundleadaptationmanager.start();
+        bundleadaptationreasoner.start();    
+        bundlecontextmonitor.start();
+       
 	}
 
 	public void stop(BundleContext arg0) throws Exception {
