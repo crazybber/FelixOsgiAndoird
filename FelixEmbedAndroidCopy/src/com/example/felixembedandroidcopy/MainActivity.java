@@ -1,8 +1,9 @@
 package com.example.felixembedandroidcopy;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -17,19 +18,12 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
-import com.example.felixembedandroidcopy.view.TextService;
 import com.example.felixembedandroidcopy.view.ViewFactory;
 
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.app.Activity;
-import android.os.Build;
 
 public class MainActivity extends Activity {
 
@@ -242,8 +236,9 @@ public class MainActivity extends Activity {
     private void testInstalledBundleState(){
     	
 		Bundle[] bundles = getInstalledBundles();
-		TextService ts = null;
 		ArrayList<Object> serviceList = new ArrayList<Object>();
+
+		String gotText = null;
 		String teststr = "TEST: ";
 		for (Bundle b : bundles) {
 			
@@ -262,31 +257,43 @@ public class MainActivity extends Activity {
 			
 			teststr = teststr+"\n "+b.getSymbolicName()+"\nSTATE: "+stateStr+" ";
 			System.out.println("TESTBUNDLE: "+b.getSymbolicName());
-			
 			if(b.getSymbolicName().equals("TextBundle") )
 			{
 				//serviceList.add(b.getRegisteredServices());
-				for(Object obj : b.getRegisteredServices())
-				{
-					Log.i("Service toString",obj.toString());
-					
-					//Object a = b.getBundleContext().getService(b.getBundleContext().getServiceReference(obj.toString()));
-					Object a  = b.getBundleContext();
-					if(a != null)
-					{
-						Log.i("Bundle State and Name","not null "+ a.toString());
-					}
-					else
-						Log.e("bundle State", " NULL");
-				}
-			}
-				 
-			
 				
+				for(ServiceReference<?> obj : b.getRegisteredServices())
+				{
+					Object a = b.getBundleContext().getService(obj);
+					Log.i("service get",a.toString());
+					
+					try {
+						Method getText = a.getClass().getDeclaredMethod("getText",null);
+						try {
+							gotText = (String) getText.invoke(a, null);
+							Log.i("µÉ·¡³ª",gotText);
+						} catch (IllegalAccessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IllegalArgumentException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (InvocationTargetException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} catch (NoSuchMethodException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+				
+				
+			}
 		}
 
         TextView tv = new TextView(this);
-			tv.setText("Hello: "+teststr);
+			tv.setText("Hello: "+gotText);
         
         setContentView(tv);
     	
